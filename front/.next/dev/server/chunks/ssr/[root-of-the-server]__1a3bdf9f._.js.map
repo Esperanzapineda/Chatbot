@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///Users/esperanza/Documents/Proyectos/chatbot/front/app/page.tsx"],"sourcesContent":["import Navvar from \"@/shared/Navvar\";\n\nexport default function Home() {\n  return (\n    <div>\n      <div>\n\n      </div>\n    </div>\n  )\n}"],"names":[],"mappings":";;;;;;AAEe,SAAS;IACtB,qBACE,6bAAC;kBACC,cAAA,6bAAC;;;;;;;;;;AAKP"}}]
+}
