@@ -1,27 +1,31 @@
 import { Button } from '@/components/ui/button'
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import React from 'react'
 
 const Hero = () => {
   return (
-    <Card  className="w-full bg-background">
-      <CardHeader >
-        <CardTitle className='text-foreground'>
-            Conoce a ESPERANZA:
-        </CardTitle>
-        <CardDescription className='text-primary'>
-            Mi Asistente de IA te Cuenta sobre mi experiencia
-        </CardDescription>
-      </CardHeader>
-      <CardFooter className='grid gap-2 bg-background border-none'>
-        <Button type='submit' className='w-full text-foreground font-bold px-4 py-2 rounded-md hover:bg-primary/90 transition-all cursor-pointer'>
+    <div  className="w-full bg-background flex flex-col">
+      <section>
+        <h1 className='text-foreground text-3xl'>
+            Conoce a ESPERANZA: <br />
+            <span className='text-primary'>Mi Asistente de IA</span> te <br />
+            Cuenta sobre mi experiencia
+        </h1>
+        <p>
+          Hola, soy Esperanza, una apasionada desarrolladora Full <br />
+          stack. Mi asistente de IA esta aquí para responder tus <br />
+          preguntas sobre mis habilidades, proyectos y trayectoria en <br />
+          tiempo real.
+        </p>
+      </section>
+      <section className='flex gap-2 bg-background border-none'>
+        <Button type='submit' className='text-foreground font-bold px-4 py-2 rounded-md hover:bg-primary/90 transition-all cursor-pointer'>
             Chatear con ESPERANZA
         </Button>
-        <Button variant='outline' className='w-full text-foreground hover:text-primary'>
+        <Button variant='outline' className='text-foreground hover:text-primary'>
             Ver Demo
         </Button>
-      </CardFooter>
-    </Card>
+      </section>
+    </div>
   )
 }
 
