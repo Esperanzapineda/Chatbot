@@ -1,8 +1,11 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { mockMessages } from '@/services/utils/data'
+import MessageBubble from '@/shared/MessageBubble'
 import { SendHorizontal } from 'lucide-react'
 import React from 'react'
+
 
 const Chat = () => {
   return (
@@ -20,8 +23,17 @@ const Chat = () => {
         <div className="w-11"></div> 
       </div>
 
-      <div className="flex-1 p-4 overflow-y-auto">
+      <div className='flex-1 p-4 overflow-y-auto flex flex-col gap-4'>
+        {mockMessages.map((msg) => (
+          <MessageBubble
+            key={msg.id}
+            role={msg.role as 'user' | 'bot'}
+            content={msg.content}
+          />
+        ))}
       </div>
+
+      <div className="flex-1 p-4 overflow-y-auto"> </div>
 
       <div className="p-4 border-t border-border/50 bg-muted/10">
         <form className="flex w-full items-center gap-2" onSubmit={(e) => e.preventDefault()}>
