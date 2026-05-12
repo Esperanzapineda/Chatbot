@@ -4,8 +4,8 @@ import Navbar from "@/shared/Navbar";
 import Footer from "@/shared/Footer";
 
 export const metadata: Metadata = {
-  title: "Mi Chatbot",
-  description: "My chatbot, learn about me",
+  title: "Chatbot AI - Mi Portafolio",
+  description: "Asistente inteligente construido con Next.js",
 };
 
 export default function RootLayout({

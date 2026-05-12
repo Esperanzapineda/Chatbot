@@ -24,7 +24,7 @@ const Footer = () => {
         </div>
 
         <div className="text-center md:text-right">
-          <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} — Tunja, Colombia</p>
+          <p className="text-xs text-muted-foreground"  suppressHydrationWarning>© {new Date().getFullYear()} — Tunja, Colombia</p>
           <p className="text-[10px] text-muted-foreground/50 uppercase tracking-widest mt-1">Hecho con React & Next.js</p>
         </div>
 

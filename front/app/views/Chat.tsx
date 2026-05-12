@@ -13,9 +13,9 @@ const Chat = () => {
       
       <div className="flex items-center px-4 py-3 border-b border-border/50 bg-muted/20">
         <div className="flex gap-2">
-          <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-          <div className="w-3 h-3 rounded-full bg-primary/80"></div>
+          <div className="size-3 rounded-full bg-red-500/80"></div>
+          <div className="size-3 rounded-full bg-yellow-500/80"></div>
+          <div className="size-3 rounded-full bg-primary/80"></div>
         </div>
         <span className="ml-auto mr-auto text-sm font-medium text-muted-foreground">
           Asistente IA
