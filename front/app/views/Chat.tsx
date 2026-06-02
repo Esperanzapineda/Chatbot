@@ -1,13 +1,46 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { mockMessages } from '@/services/utils/data'
+import { initialMessages } from '@/services/utils/data'
+import { Message } from '@/services/utils/types'
 import MessageBubble from '@/shared/MessageBubble'
 import { SendHorizontal } from 'lucide-react'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 
 const Chat = () => {
+
+  const [messages, setMessages] = useState<Message[]>(initialMessages)
+  const [inputVale, setInputValue] = useState('')
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+
+  useEffect(() => {
+    if(scrollContainerRef.current){
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      })
+    }
+  }, [messages])
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if(!inputVale.trim()) return
+
+    const newMessage: Message = {
+      id: Date.now(),
+      role:'user',
+      content: inputVale.trim()
+    }
+
+    setMessages((prev) => [...prev, newMessage])
+
+    setInputValue('')
+  }
+
   return (
     <div className="flex flex-col w-full max-w-[450px] h-[500px] rounded-xl border border-border/50 bg-background/60 backdrop-blur-xl shadow-2xl overflow-hidden">
       
@@ -23,8 +56,11 @@ const Chat = () => {
         <div className="w-11"></div> 
       </div>
 
-      <div className='flex-1 p-4 overflow-y-auto flex flex-col gap-4'>
-        {mockMessages.map((msg) => (
+      <div 
+        ref={scrollContainerRef}
+        className='flex-1 p-4 overflow-y-auto flex flex-col gap-4'
+      >
+        {messages.map((msg) => (
           <MessageBubble
             key={msg.id}
             role={msg.role as 'user' | 'bot'}
@@ -36,21 +72,23 @@ const Chat = () => {
       <div className="flex-1 p-4 overflow-y-auto"> </div>
 
       <div className="p-4 border-t border-border/50 bg-muted/10">
-        <form className="flex w-full items-center gap-2" onSubmit={(e) => e.preventDefault()}>
+        <form className="flex w-full items-center gap-2" onSubmit={handleSendMessage}>
           <Input 
             placeholder="Escribe un mensaje..." 
             className="flex-1 bg-background/50 border-border/50 focus-visible:ring-primary"
+            value={inputVale}
+            onChange={(e) => setInputValue(e.target.value)}
           />
           <Button 
             type="submit" 
             size="icon" 
             className="bg-primary text-black hover:bg-primary/80 transition-colors"
+            disabled={!inputVale.trim()}
           >
             <SendHorizontal className="w-5 h-5" />
           </Button>
         </form>
       </div>
-
     </div>
   )
 }
