@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { initialMessages } from '@/services/utils/data'
 import { Message } from '@/services/utils/types'
 import MessageBubble from '@/shared/MessageBubble'
-import { SendHorizontal } from 'lucide-react'
+import { Loader2, SendHorizontal } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 
 
@@ -12,6 +12,7 @@ const Chat = () => {
 
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [inputVale, setInputValue] = useState('')
+  const [isLoading, setISLoading] = useState(false)
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
@@ -23,22 +24,53 @@ const Chat = () => {
         behavior: 'smooth'
       })
     }
-  }, [messages])
+  }, [messages,isLoading])
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if(!inputVale.trim()) return
+    if(!inputVale.trim() || isLoading) return
 
-    const newMessage: Message = {
+    //guardamos el mensaje del usuario
+    const userMessage: Message = {
       id: Date.now(),
       role:'user',
       content: inputVale.trim()
     }
 
-    setMessages((prev) => [...prev, newMessage])
-
+    //se actualiza la pantalla con el mensaje del usuario
+    const newMessagesHistory = [...messages, userMessage]
+    setMessages(newMessagesHistory)
     setInputValue('')
+
+    setISLoading(true)
+
+    try {
+      const response = await fetch('http://localhost:3001/chat', {
+        method: 'POST',
+        headers: {
+          'content-Type': 'application/json',
+        },
+        body: JSON.stringify({messages: newMessagesHistory}),
+      })
+      if(!response.ok){
+        throw new Error('Error en la comunicación con el servidor')
+      }
+      const data = await response.json()
+
+      const aiMessage: Message = {
+        id: Date.now() + 1,
+        role: data.message.role,
+        content: data.message.content
+      }
+
+      setMessages((prev) => [...prev, aiMessage])
+
+    } catch (error) {
+      console.error('Error al enviar el mensaje:', error)
+    }finally {
+      setISLoading(false)
+    }
   }
 
   return (
@@ -67,6 +99,14 @@ const Chat = () => {
             content={msg.content}
           />
         ))}
+        {isLoading &&(
+          <div className="flex w-full justify-start">
+          <div className="max-w-[80%] p-3 text-sm shadow-sm bg-muted/20 text-foreground border border-border/40 rounded-2xl rounded-tl-none flex items-center gap-2">
+            <Loader2 className="w-4 h-4 animate-spin text-primary" />
+            <span>Analizando perfil...</span>
+          </div>
+        </div>
+        )}
       </div>
 
       <div className="flex-1 p-4 overflow-y-auto"> </div>

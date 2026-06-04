@@ -3,7 +3,7 @@ import { Message } from "./types";
 export const initialMessages: Message[] = [
     { 
         id: 1, 
-        role: 'bot', 
+        role: 'assistant', 
         content: '¡Hola! Soy ESPERANZA, la asistente virtual. ¿Qué te gustaría saber sobre mi experiencia como desarrolladora Fullstack?' 
     },
     { 
@@ -13,7 +13,7 @@ export const initialMessages: Message[] = [
     },
     { 
         id: 3, 
-        role: 'bot', 
+        role: 'assistant', 
         content: 'Tengo experiencia construyendo APIs robustas utilizando Node.js y Express. También manejo bases de datos relacionales con PostgreSQL y ORMs como Prisma.' 
     }
   ]

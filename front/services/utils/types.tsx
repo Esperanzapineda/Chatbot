@@ -5,6 +5,6 @@ export interface MessageBubbleProps {
 
 export interface Message {
     id: string | number
-    role: 'user' | 'bot'
+    role: 'user' | 'assistant'
     content: string
 }
